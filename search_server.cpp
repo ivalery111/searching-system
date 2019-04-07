@@ -62,11 +62,6 @@ void ProcessSearches(
     {
       auto access = index_handle.GetAccess();
 
-      // В отличие от однопоточной версии мы должны при каждом обращении
-      // к индексу изменять размер векторов docid_count и docids, потому что
-      // между последовательными итерациями цикла индекс может быть изменён
-      // параллельным запуском функции UpdateIndex. Соответственно в новой
-      // версии базы может быть другое количество документов.
       const size_t doc_count = access.ref_to_value.GetDocuments().size();
       docid_count.assign(doc_count, 0);
       docids.resize(doc_count);
